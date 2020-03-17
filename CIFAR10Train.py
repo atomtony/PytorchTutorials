@@ -1,10 +1,6 @@
 import torch
 import torchvision
 import torchvision.transforms as transforms
-import matplotlib.pyplot as plt
-import numpy as np
-import torch.nn as nn
-import torch.nn.functional as F
 
 
 transform = transforms.Compose(
@@ -23,6 +19,12 @@ testloader = torch.utils.data.DataLoader(testset, batch_size=4,
 
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# functions to show an image
 def imshow(img):
     img = img / 2 + 0.5     # unnormalize
     npimg = img.numpy()
@@ -38,6 +40,11 @@ images, labels = dataiter.next()
 imshow(torchvision.utils.make_grid(images))
 # print labels
 print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
+
+import torch.nn as nn
+import torch.nn.functional as F
+
+
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
@@ -61,9 +68,12 @@ class Net(nn.Module):
 net = Net()
 
 import torch.optim as optim
+
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
-for epoch in range(1):  # loop over the dataset multiple times
+
+
+for epoch in range(2):  # loop over the dataset multiple times
 
     running_loss = 0.0
     for i, data in enumerate(trainloader, 0):
@@ -87,5 +97,7 @@ for epoch in range(1):  # loop over the dataset multiple times
             running_loss = 0.0
 
 print('Finished Training')
+
+
 PATH = './cifar_net.pth'
 torch.save(net.state_dict(), PATH)
