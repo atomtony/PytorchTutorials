@@ -53,7 +53,7 @@ opt = parser.parse_args()
 
 # 超参数设置
 EPOCH = 8  # 遍历数据集次数
-BATCH_SIZE = 64  # 批处理尺寸(batch_size)
+BATCH_SIZE = 32  # 批处理尺寸(batch_size)
 LR = 0.001  # 学习率
 
 # 定义数据预处理方式

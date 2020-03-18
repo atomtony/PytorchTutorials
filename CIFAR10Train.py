@@ -37,8 +37,6 @@ def imshow(img):
 dataiter = iter(trainloader)
 images, labels = dataiter.next()
 
-print(images.shape())
-
 # show images
 imshow(torchvision.utils.make_grid(images))
 # print labels
