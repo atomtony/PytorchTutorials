@@ -1,6 +1,7 @@
 '''VGG11/13/16/19 in Pytorch.'''
 import torch
 import torch.nn as nn
+from thop import profile
 from torchsummary import summary
 
 cfg = {
@@ -45,6 +46,12 @@ def test():
     y = net(x)
     print(y.size())
     summary(net, input_size=(3, 32, 32), device='cpu')
+
+    input = torch.randn(1, 3, 32, 32)
+    macs, params = profile(net, inputs=(input,))
+
+    print(macs)
+    print(params)
 
 
 if __name__ == "__main__":
