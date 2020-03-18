@@ -32,8 +32,8 @@ classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship'
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # net = LeNet()
-net = VGG('VGG16')
-
+# net = VGG('VGG16')
+net = ResNet18()
 net.to(device)
 PATH = './%s.pth' % net.name
 if os.path.exists(PATH):

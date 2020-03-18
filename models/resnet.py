@@ -98,7 +98,9 @@ class ResNet(nn.Module):
 
 
 def ResNet18():
-    return ResNet(BasicBlock, [2, 2, 2, 2])
+    net = ResNet(BasicBlock, [2, 2, 2, 2])
+    net.name="ResNet18"
+    return net
 
 
 def ResNet34():
