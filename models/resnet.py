@@ -9,6 +9,7 @@ Reference:
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchsummary import summary
 
 
 class BasicBlock(nn.Module):
@@ -123,6 +124,7 @@ def test():
     net = ResNet18()
     y = net(torch.randn(1, 3, 32, 32))
     print(y.size())
+    summary(net, input_size=(3, 32, 32), device='cpu')
 
 
 if __name__ == '__main__':

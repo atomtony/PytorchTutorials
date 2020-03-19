@@ -1,9 +1,12 @@
+import os
+
 import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
+from torch.utils.tensorboard import SummaryWriter
+from torchviz import make_dot
 
 from models import *
-import os
 
 transform_train = transforms.Compose([
     transforms.RandomCrop(32, padding=4),
@@ -32,9 +35,24 @@ classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship'
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # net = LeNet()
-# net = VGG('VGG16')
-net = ResNet18()
+net = VGG('VGG16')
+# net = ResNet18()
+
+view_by_plug = "tensorboard"
+if view_by_plug == "graphviz":
+    x = torch.randn(1, 3, 32, 32).requires_grad_(True)
+    y = net(x)
+    vis_graph = make_dot(y, params=dict(list(net.named_parameters()) + [('x', x)]))
+    vis_graph.view()
+
+elif view_by_plug == "tensorboard":
+    writer = SummaryWriter('runs/fashion_mnist_experiment_1')
+    x = torch.randn(1, 3, 32, 32).requires_grad_(True)
+    writer.add_graph(net,x)
+    writer.close()
+
 net.to(device)
+
 PATH = './%s.pth' % net.name
 if os.path.exists(PATH):
     net.load_state_dict(torch.load(PATH))
