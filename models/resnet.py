@@ -100,7 +100,7 @@ class ResNet(nn.Module):
 
 def ResNet18():
     net = ResNet(BasicBlock, [2, 2, 2, 2])
-    net.name="ResNet18"
+    net.name = "ResNet18"
     return net
 
 
